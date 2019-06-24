@@ -1,0 +1,89 @@
+spring:
+    datasource:
+        driverClassName: org.postgresql.Driver
+        jdbcUrl: jdbc:postgresql://localhost:5432/smr_new # CAN BE CHANGED
+        username: postgres
+        password: P@ssw0rd
+        type: com.zaxxer.hikari.HikariDataSource
+        poolName: SpringBootHikariCP
+        validationQuery: SELECT 1
+        connectionTestQuery: SELECT 1
+        testWhileIdle: true
+        maximumPoolSize: 50
+        minimumIdle: 20
+        maxLifetime: 180000
+        connectionTimeout: 30000
+        idleTimeout: 120000
+        validationTimeout: 30000
+    jpa:
+        hibernate:
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+            connection:
+                provider_class: rg.hibernate.hikaricp.internal.HikariCPConnectionProvider
+        show-sql: false
+        generate-ddl: true # CAN BE CHANGED
+        properties:
+            hibernate:
+                format_sql: false
+                ddl-auto: update # CAN BE CHANGED
+                hbm2ddl:
+                    auto: update # CAN BE CHANGED
+                dialect: org.hibernate.dialect.PostgreSQL91Dialect
+                current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+                id:
+                    new_generator_mappings: false
+                order_inserts: true
+                order_updates: true
+                jdbc:
+                    batch_size: 50
+                    batch_versioned_data: true
+                    lob:
+                        non_contextual_creation: true
+    jta:
+        enabled: true
+        transaction-manager-id: transactionManager
+    jackson:
+        serialization:
+            FAIL_ON_EMPTY_BEANS: false
+    flyway:
+        locations: classpath:db/migration
+        baselineOnMigrate: true
+        validateOnMigrate: false
+
+entitymanager:
+    packages:
+        to:
+            scan: id.co.mandiri
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+eureka:
+    instance:
+        leaseRenewalIntervalInSeconds: 10
+        metadata-map:
+            startup: ${random.int}
+    client:
+        serviceUrl:
+            defaultZone: http://127.0.0.1:8762/eureka/
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+    endpoint:
+        health:
+            show-details: ALWAYS
+
+http:
+    mappers:
+        json-pretty-print: true
+
+server:
+    compression:
+        enabled: false
+        min-response-size: 512
+        mime-types: text/css,text/html,text/xml,application/xhtml+xml,application/javascript,application/json
+    session:
+        persistent: true

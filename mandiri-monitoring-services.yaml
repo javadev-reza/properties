@@ -1,0 +1,40 @@
+server:
+    port: ${PORT:8765}
+
+spring:
+    application:
+        name: spring-boot-admin
+    cloud:
+        client:
+            hostname: 127.0.0.1
+    security:
+        user:
+            name: "smr-admin"
+            password: "P@ssw0rd"
+
+eureka:
+    instance:
+        leaseRenewalIntervalInSeconds: 10
+        health-check-url-path: /actuator/health
+        metadata-map:
+            startup: ${random.int}
+            user.name: ${spring.security.user.name}
+            user.password: ${spring.security.user.password}
+    client:
+        registryFetchIntervalSeconds: 5
+        serviceUrl:
+            defaultZone: http://127.0.0.1:8762/eureka/
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+    endpoint:
+        health:
+            show-details: ALWAYS
+
+http:
+    mappers:
+        json-pretty-print: true
+

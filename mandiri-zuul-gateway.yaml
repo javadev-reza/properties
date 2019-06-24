@@ -1,0 +1,89 @@
+spring:
+    application:
+        name: zuul-gateway
+
+eureka:
+    instance:
+        leaseRenewalIntervalInSeconds: 10
+        metadata-map:
+            startup: ${random.int}
+    client:
+        serviceUrl:
+            defaultZone: http://127.0.0.1:8762/eureka/
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+    endpoint:
+        health:
+            show-details: ALWAYS
+
+http:
+    mappers:
+        json-pretty-print: true
+
+server:
+    compression:
+        enabled: false
+        min-response-size: 512
+        mime-types: text/css,text/html,text/xml,application/xhtml+xml,application/javascript,application/json
+    session:
+        persistent: true
+
+zuul:
+    routes:
+        users:
+            path: /eureka-server/**
+            sensitiveHeaders: Cookie,Set-Cookie,Authorization
+
+hystrix:
+    command:
+        default:
+            execution:
+                isolation:
+                    strategy: THREAD
+                    thread:
+                        timeoutInMilliseconds: 20000
+                        interruptOnTimeout: true
+                        interruptOnCancel: false
+                timeout:
+                    enabled: true
+            fallback:
+                enabled: true
+            circuitBreaker:
+                enabled: true
+                requestVolumeThreshold: 1000
+                sleepWindowInMilliseconds: 5000
+                errorThresholdPercentage: 50
+            metrics:
+                rollingStats:
+                    timeInMilliseconds: 10000
+                    numBuckets: 10
+                rollingPercentile:
+                    enabled: true
+                    timeInMilliseconds: 60000
+                    numBuckets: 6
+                    bucketSize: 100
+                healthSnapshot:
+                    intervalInMilliseconds: 500
+            requestCache:
+                enabled: true
+            requestLog:
+                enabled: true
+    collapser:
+        default:
+            maxRequestsInBatch: Integer.MAX_VALUE
+            timerDelayInMilliseconds: 10
+            requestCache:
+                enabled: true
+    threadpool:
+        default:
+            coreSize: 5000
+            maxQueueSize: 10000
+            queueSizeRejectionThreshold: 50
+            metrics:
+                rollingStats:
+                    timeInMilliseconds: 10000
+                    numBuckets: 10

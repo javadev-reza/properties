@@ -1,0 +1,30 @@
+server:
+    port: ${PORT:8762}
+
+spring:
+    application:
+        name: eureka-server
+
+eureka:
+    client:
+        registerWithEureka: false
+        fetchRegistry: false
+        healthcheck:
+            enabled: true
+        serviceUrl:
+            defaultZone: http://127.0.0.1:8762/eureka/
+    dashboard:
+        enabled: true
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+    endpoint:
+        health:
+            show-details: ALWAYS
+
+http:
+    mappers:
+        json-pretty-print: true
