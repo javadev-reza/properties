@@ -1,7 +1,7 @@
 spring:
     datasource:
         driverClassName: org.postgresql.Driver
-        jdbcUrl: jdbc:postgresql://localhost:5432/smr_new # CAN BE CHANGED
+        jdbcUrl: jdbc:postgresql://localhost:5432/smr_dev # CAN BE CHANGED
         username: postgres
         password: P@ssw0rd
         type: com.zaxxer.hikari.HikariDataSource
