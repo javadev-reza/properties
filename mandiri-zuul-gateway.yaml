@@ -38,52 +38,52 @@ zuul:
             path: /eureka-server/**
             sensitiveHeaders: Cookie,Set-Cookie,Authorization
 
-hystrix:
-    command:
-        default:
-            execution:
-                isolation:
-                    strategy: THREAD
-                    thread:
-                        timeoutInMilliseconds: 20000
-                        interruptOnTimeout: true
-                        interruptOnCancel: false
-                timeout:
-                    enabled: true
-            fallback:
-                enabled: true
-            circuitBreaker:
-                enabled: true
-                requestVolumeThreshold: 1000
-                sleepWindowInMilliseconds: 5000
-                errorThresholdPercentage: 50
-            metrics:
-                rollingStats:
-                    timeInMilliseconds: 10000
-                    numBuckets: 10
-                rollingPercentile:
-                    enabled: true
-                    timeInMilliseconds: 60000
-                    numBuckets: 6
-                    bucketSize: 100
-                healthSnapshot:
-                    intervalInMilliseconds: 500
-            requestCache:
-                enabled: true
-            requestLog:
-                enabled: true
-    collapser:
-        default:
-            maxRequestsInBatch: Integer.MAX_VALUE
-            timerDelayInMilliseconds: 10
-            requestCache:
-                enabled: true
-    threadpool:
-        default:
-            coreSize: 5000
-            maxQueueSize: 10000
-            queueSizeRejectionThreshold: 50
-            metrics:
-                rollingStats:
-                    timeInMilliseconds: 10000
-                    numBuckets: 10
+#hystrix:
+#    command:
+#        default:
+#            execution:
+#                isolation:
+#                    strategy: THREAD
+#                    thread:
+#                        timeoutInMilliseconds: 20000
+#                        interruptOnTimeout: true
+#                        interruptOnCancel: false
+#                timeout:
+#                    enabled: true
+#            fallback:
+#                enabled: true
+#            circuitBreaker:
+#                enabled: true
+#                requestVolumeThreshold: 1000
+#                sleepWindowInMilliseconds: 5000
+#                errorThresholdPercentage: 50
+#            metrics:
+#                rollingStats:
+#                    timeInMilliseconds: 10000
+#                    numBuckets: 10
+#                rollingPercentile:
+#                    enabled: true
+#                    timeInMilliseconds: 60000
+#                    numBuckets: 6
+#                    bucketSize: 100
+#                healthSnapshot:
+#                    intervalInMilliseconds: 500
+#            requestCache:
+#                enabled: true
+#            requestLog:
+#                enabled: true
+#    collapser:
+#        default:
+#            maxRequestsInBatch: Integer.MAX_VALUE
+#            timerDelayInMilliseconds: 10
+#            requestCache:
+#                enabled: true
+#    threadpool:
+#        default:
+#            coreSize: 5000
+#            maxQueueSize: 10000
+#            queueSizeRejectionThreshold: 50
+#            metrics:
+#                rollingStats:
+#                    timeInMilliseconds: 10000
+#                    numBuckets: 10
